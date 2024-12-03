@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     public float maxHealth = 100;
     private float health;
+    public bool HasTakenDamage { get; set; }
 
     private void Start()
     {

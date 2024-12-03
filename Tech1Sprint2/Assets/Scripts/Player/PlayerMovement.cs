@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,14 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    private void Awake()
-    {
-        playerInputs = new PlayerInputs();
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
-            Debug.LogError("No rigidbody on " + this.gameObject.name + "!!!");
-    }
-
     private void OnEnable()
     {
         playerInputs.Enable();
@@ -27,6 +20,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         playerInputs.Disable();
+    }
+    private void Awake()
+    {
+        playerInputs = new PlayerInputs();
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+            Debug.LogError("No rigidbody on " + this.gameObject.name + "!!!");
     }
 
     private void FixedUpdate()
