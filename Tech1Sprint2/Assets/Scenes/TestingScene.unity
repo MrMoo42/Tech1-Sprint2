@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 1094681218}
   - component: {fileID: 1094681217}
   - component: {fileID: 1094681216}
+  - component: {fileID: 1094681222}
   - component: {fileID: 1094681221}
   - component: {fileID: 1094681220}
   m_Layer: 0
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c72af5bc36a9345b983a01fd458607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
 --- !u!212 &1094681217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -622,6 +623,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1094681222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094681215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc73cc9cf38471b45b4ac8adad97fd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
