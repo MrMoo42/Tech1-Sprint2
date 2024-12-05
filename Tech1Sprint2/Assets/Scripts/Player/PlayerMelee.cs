@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMelee : MonoBehaviour
 {
     [SerializeField] private Transform attackTransform;
-    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackRange = 1.5f; //How large should the attack sphere be. (range)
     [SerializeField] private LayerMask attackableLayer;
+    [SerializeField] private SpriteRenderer sprite;
 
+    [SerializeField] private GameObject hinge;
     public bool shouldDamage { get; private set; } = false;
 
     [SerializeField] private List<IDamageable> iDamageables = new List<IDamageable>();
@@ -16,8 +19,8 @@ public class PlayerMelee : MonoBehaviour
 
     private Animator anim;
 
-    public float damage = 10f;
-    public float attackSpeed = 0.5f;
+    public float damage = 10f; //Damage dealt on each swing.
+    public float attackSpeed = 0.7f; //Time that needs to pass before Player can attack again.
 
     private float attackTimeCounter;
 
@@ -29,6 +32,21 @@ public class PlayerMelee : MonoBehaviour
     }
     private void Update()
     {
+        //Get Screen POS of Object
+        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(hinge.transform.position);
+        //Get Mouse POS
+        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        //Get the Angle Between the Two Points
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+        //Rotate!
+        hinge.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+
+        if (hinge.transform.rotation.w < Mathf.Abs(0.7f)) {
+            sprite.flipY = true;
+        } else if (hinge.transform.rotation.w > Mathf.Abs(0.7f)) {
+            sprite.flipY = false;
+        }
+
         if (UserInput.instance.controls.Player.Attack.WasPerformedThisFrame() && attackTimeCounter >= attackSpeed)
         {
             attackTimeCounter = 0f;
@@ -37,6 +55,11 @@ public class PlayerMelee : MonoBehaviour
         }
 
         attackTimeCounter += Time.deltaTime;
+    }
+
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+
     }
 
     private void OnDrawGizmos()
@@ -80,7 +103,6 @@ public class PlayerMelee : MonoBehaviour
                     iDamageables.Add(iDamageable);
                 }
             }
-
             yield return null;
         }
         ReturnAttackablesToDamagable();
