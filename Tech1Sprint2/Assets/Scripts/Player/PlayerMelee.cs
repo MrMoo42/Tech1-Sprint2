@@ -10,9 +10,11 @@ public class PlayerMelee : MonoBehaviour
 
     public bool shouldDamage { get; private set; } = false;
 
-    private List<IDamageable> iDamageables = new List<IDamageable>();
+    [SerializeField] private List<IDamageable> iDamageables = new List<IDamageable>();
 
     private RaycastHit2D[] hits;
+
+    private Animator anim;
 
     public float damage = 10f;
     public float attackSpeed = 0.5f;
@@ -23,12 +25,14 @@ public class PlayerMelee : MonoBehaviour
     private void Start()
     {
         attackTimeCounter = attackSpeed;
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
         if (UserInput.instance.controls.Player.Attack.WasPerformedThisFrame() && attackTimeCounter >= attackSpeed)
         {
             attackTimeCounter = 0f;
+            anim.SetTrigger("attack");
             //Attack();
         }
 
@@ -62,7 +66,7 @@ public class PlayerMelee : MonoBehaviour
 
         while (shouldDamage)
         {
-            hits = Physics2D.CircleCastAll(attackTransform.position, attackRange, transform.right, 0f, attackableLayer);
+            hits = Physics2D.CircleCastAll(attackTransform.position, attackRange, transform.right * -1, 0f, attackableLayer);
             for (int i = 0; i < hits.Length; i++)
             {
                 EnemyHealth enemyHealth = hits[i].collider.gameObject.GetComponent<EnemyHealth>();
@@ -71,6 +75,7 @@ public class PlayerMelee : MonoBehaviour
 
                 if (iDamageable != null && !iDamageable.HasTakenDamage)
                 {
+                    Debug.Log("Smack!");
                     iDamageable.Damage(damage);
                     iDamageables.Add(iDamageable);
                 }
@@ -78,6 +83,7 @@ public class PlayerMelee : MonoBehaviour
 
             yield return null;
         }
+        ReturnAttackablesToDamagable();
     }
 
     private void ReturnAttackablesToDamagable() {

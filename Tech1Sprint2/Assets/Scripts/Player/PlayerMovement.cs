@@ -33,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = playerInputs.Player.Movement.ReadValue<Vector2>();
         moveInput.Normalize();
+        if (moveInput.x >= 0.5f) {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        } else if (moveInput.x <= -0.5f) {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
         rb.velocity = moveInput * moveSpeed;
     }
 }
