@@ -80,7 +80,6 @@ public class PlayerMelee : MonoBehaviour
                     iDamageables.Add(iDamageable);
                 }
             }
-
             yield return null;
         }
         ReturnAttackablesToDamagable();
