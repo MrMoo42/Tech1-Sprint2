@@ -32,6 +32,7 @@ public class EnemyPatrol : MonoBehaviour
     public SpriteRenderer sprite;
     private float cd = 0;
     private GameObject waypointHolder;
+    public EnemyHealth health;
 
     private void OnDrawGizmos()
     {
@@ -42,7 +43,8 @@ public class EnemyPatrol : MonoBehaviour
                 Gizmos.DrawIcon(waypoints[i].position, "Square.png", true, Color.red);
             }
         }
-        else {
+        else
+        {
         }
     }
 
@@ -50,10 +52,12 @@ public class EnemyPatrol : MonoBehaviour
     {
         cd = stopDelay;
         waypointHolder = GameObject.Find("Waypoints");
-        if (random) {
+        if (random)
+        {
             randTarget = Instantiate(waypointObject, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0), Quaternion.identity, waypointHolder.transform).transform;
         }
-        else {
+        else
+        {
             transform.position = waypoints[0].position;
         }
     }
@@ -66,7 +70,8 @@ public class EnemyPatrol : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, randTarget.position, speed * Time.deltaTime);
             }
-            else {
+            else
+            {
                 cd += Time.deltaTime;
                 if (cd >= stopDelay)
                 {
@@ -76,7 +81,8 @@ public class EnemyPatrol : MonoBehaviour
                 }
             }
         }
-        else {
+        else
+        {
             if (transform.position != waypoints[target].position)
             {
                 transform.position = Vector2.MoveTowards(transform.position, waypoints[target].position, speed * Time.deltaTime);
@@ -84,7 +90,8 @@ public class EnemyPatrol : MonoBehaviour
             else
             {
                 cd += Time.deltaTime;
-                if (cd >= stopDelay) {
+                if (cd >= stopDelay)
+                {
                     target = (target + 1) % waypoints.Length;
                     cd = 0;
                 }
@@ -104,6 +111,24 @@ public class EnemyPatrol : MonoBehaviour
                 else
                     sprite.flipX = true;
             }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement playerMove = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerHealth playerHP = other.gameObject.GetComponent<PlayerHealth>();
+            if (!playerMove.invincible)
+            {
+                playerHP.Damage(1);
+                StartCoroutine(playerMove.FlashDamage());
+            }
+        }
+        if (other.gameObject.CompareTag("Void"))
+        {
+            health.Damage(100);
         }
     }
 }

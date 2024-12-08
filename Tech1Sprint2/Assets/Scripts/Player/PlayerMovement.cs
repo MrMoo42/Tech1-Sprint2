@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class PlayerMovement : MonoBehaviour
 
     private SpriteRenderer sprite;
     private Animator anim;
+
+
+    public Color flashColor = Color.red;
+    private Color orignialColor = Color.white;
+    private float flashDuration = 0.1f;
+
+    public float Frames;
+    public bool invincible;
 
     private void OnEnable()
     {
@@ -77,5 +86,25 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("WalkDown", false);
         anim.SetBool("WalkLeft", false);
         anim.SetBool("WalkRight", false);
+    }
+
+    public IEnumerator FlashDamage()
+    {
+        StartCoroutine(invincibilityFrames()); // trigger invincibility when damaged
+
+        sprite.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        sprite.color = orignialColor;
+    }
+
+    public IEnumerator invincibilityFrames() // invisibility frames
+    {
+        if (!invincible)
+        {
+            invincible = true;
+            yield return new WaitForSeconds(Frames);
+            invincible = false;
+            sprite.color = orignialColor;
+        }
     }
 }
