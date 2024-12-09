@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerMovement : MonoBehaviour
 {
     //Using the newer input system for this, more flexible.
 
-    public float moveSpeed = 5.0f;
-    private PlayerInputs playerInputs;
-    private Rigidbody2D rb;
-    private Vector2 moveInput;
+    public float moveSpeed = 5.0f; //How quickly the player moves across the level.
 
-    private SpriteRenderer sprite;
+    private PlayerInputs playerInputs; //Needed for detecting key presses.
+    private Rigidbody2D rb; //To actually *move* the player.
+    private Vector2 moveInput; //Back end value, goes from -1 to 1 on each axis (x and y).
+
+    private SpriteRenderer sprite; 
     private Animator anim;
 
-    public bool isMoved;
+    public bool isMoved; //Has the player moved since the last frame? (Used to stop the Mirror Player moving while the Material Player is stuck on an object.
 
     public Color flashColor = Color.red;
     private Color orignialColor = Color.white;
@@ -25,48 +25,49 @@ public class PlayerMovement : MonoBehaviour
     public float Frames;
     public bool invincible;
 
-    private Vector2 oldPos;
+    private Vector2 oldPos; //Position of the player last frame.
 
     private void OnEnable()
     {
-        playerInputs.Enable();
-    }
+        playerInputs.Enable(); 
+    } //Function to start detecting keyboard/controller inputs.
 
     private void OnDisable()
     {
         playerInputs.Disable();
-    }
+    } //Function to stop detecting keyboard/controller inputs.
     private void Awake()
     {
-        playerInputs = new PlayerInputs();
-        rb = GetComponent<Rigidbody2D>();
+        playerInputs = new PlayerInputs(); //For input detection.
+        rb = GetComponent<Rigidbody2D>(); //Get rigidbody from the gameObject.
         if (rb == null)
-            Debug.LogError("No rigidbody on " + this.gameObject.name + "!!!");
+            Debug.LogError("No rigidbody on " + this.gameObject.name + "!!!"); //Throw an error if there isn't a rigidbody on the gameObject.
     }
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>(); //Get animator from the gameObject.
+        sprite = GetComponent<SpriteRenderer>(); //Get spriteRenderer from the gameObject.
     }
 
     private void FixedUpdate()
     {
-        moveInput = playerInputs.Player.Movement.ReadValue<Vector2>();
-        moveInput.Normalize();
+        moveInput = playerInputs.Player.Movement.ReadValue<Vector2>(); //Detect the players inputs of WASD/Joystick.
+        moveInput.Normalize(); //Normalize, this makes it so holding 2 keys doesn't make the movement any faster.
+
         if (moveInput.x >= 0.5f) {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         } else if (moveInput.x <= -0.5f) {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-        rb.velocity = moveInput * moveSpeed;
+        rb.velocity = moveInput * moveSpeed; //The actual movement of the player.
         animReset();
 
         if (oldPos == new Vector2(transform.position.x, transform.position.y)) {
-            isMoved = false;
+            isMoved = false; 
         } else {
             isMoved = true;
-        }
+        } //These functions determine if the player has moved since last frame.
 
         if (moveInput == new Vector2(0, 0)) {
             anim.SetBool("Idle", true);
@@ -85,8 +86,10 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("WalkDown", true);
 
-        }
-        oldPos = new Vector2(transform.position.x, transform.position.y);
+        } //These 5 functions decide which animation to use.
+
+
+        oldPos = new Vector2(transform.position.x, transform.position.y); //Set the "oldPos" to the current position to prepare for next frame.
     }
 
     private void animReset() {
@@ -96,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("WalkDown", false);
         anim.SetBool("WalkLeft", false);
         anim.SetBool("WalkRight", false);
-    }
+    } //Reset animations, incase we're now in a different state. (Eg.. WalkUp -> Idle)
 
     public IEnumerator FlashDamage()
     {
