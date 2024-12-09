@@ -6,6 +6,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth;
     public float health;
+    [SerializeField] private GameObject healthPickup;
+    public int healthPickupChance = 5; //Out of a hundred.
 
     public bool HasTakenDamage { get; set; }
 
@@ -26,6 +28,19 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     }
 
     private void Die() {
+        int n = Random.Range(0, 100); ;
+
+        if (n <= healthPickupChance) {
+            SpawnHealthPickup();
+        }
+
         Destroy(gameObject);
+    }
+
+    private void SpawnHealthPickup() {
+        float x = Random.Range (4.5f, 12.2f);
+        float y = Random.Range(2, -5.5f);
+
+        Instantiate(healthPickup, new Vector2(x, y), Quaternion.identity, transform.parent);
     }
 }

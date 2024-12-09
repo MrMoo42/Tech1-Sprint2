@@ -22,8 +22,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void Heal(float amt) {
-        health += amt;
+    public void Heal(bool percent = false, float amt = 0) {
+        if (percent == false) {
+            health += amt;
+        } else {
+            health += maxHealth / amt;
+        }
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
     }
 
     public void Die() {
