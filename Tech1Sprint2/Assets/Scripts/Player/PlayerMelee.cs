@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMelee : MonoBehaviour
 {
     [SerializeField] private Transform attackTransform;
-    [SerializeField] private float attackRange = 1.5f; //How large should the attack sphere be. (range)
+    public float attackRange = 1.5f; //How large should the attack sphere be. (range)
     [SerializeField] private LayerMask attackableLayer;
     [SerializeField] private SpriteRenderer sprite;
 
