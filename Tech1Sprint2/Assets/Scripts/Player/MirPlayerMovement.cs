@@ -6,14 +6,14 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class MirPlayerMovement : MonoBehaviour
 {
-    //Using the newer input system for this, more flexible.
+    //Not going to fully comment this script, as most of it is copied from "PlayerMovement.cs" - Jake
 
     public float moveSpeed = 5.0f;
     private PlayerInputs playerInputs;
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    [SerializeField] private PlayerMovement player1;
+    [SerializeField] private PlayerMovement player1; //reference to material player
 
     private SpriteRenderer sprite;
     private Animator anim;
@@ -59,7 +59,7 @@ public class MirPlayerMovement : MonoBehaviour
             rb.velocity = moveInput * moveSpeed;
         } else {
             rb.velocity = new Vector2(0, 0);
-        }
+        } //Only move if the material player is moving.
 
         animReset();
 
