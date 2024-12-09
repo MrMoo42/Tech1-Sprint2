@@ -4,7 +4,7 @@ using UnityEditor.ShaderGraph;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class PlayerMovement : MonoBehaviour
+public class MirPlayerMovement : MonoBehaviour
 {
     //Using the newer input system for this, more flexible.
 
@@ -13,10 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    [SerializeField] private PlayerMovement player1;
+
     private SpriteRenderer sprite;
     private Animator anim;
 
-    public bool isMoved;
 
     public Color flashColor = Color.red;
     private Color orignialColor = Color.white;
@@ -24,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float Frames;
     public bool invincible;
-
-    private Vector2 oldPos;
 
     private void OnEnable()
     {
@@ -54,29 +53,25 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = playerInputs.Player.Movement.ReadValue<Vector2>();
         moveInput.Normalize();
-        if (moveInput.x >= 0.5f) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        } else if (moveInput.x <= -0.5f) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
-        rb.velocity = moveInput * moveSpeed;
-        animReset();
+        moveInput.x = moveInput.x * -1;
 
-        if (oldPos == new Vector2(transform.position.x, transform.position.y)) {
-            isMoved = false;
+        if (player1.isMoved) {
+            rb.velocity = moveInput * moveSpeed;
         } else {
-            isMoved = true;
+            rb.velocity = new Vector2(0, 0);
         }
+
+        animReset();
 
         if (moveInput == new Vector2(0, 0)) {
             anim.SetBool("Idle", true);
         }
         if (moveInput.x >= 0.5)
         {
-            anim.SetBool("WalkRight", true);
+            anim.SetBool("WalkLeft", true);
         }
         else if (moveInput.x <= -0.5) {
-            anim.SetBool("WalkLeft", true);
+            anim.SetBool("WalkRight", true);
         }
         if (moveInput.y > 0.5) {
             anim.SetBool("WalkUp", true);
@@ -86,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("WalkDown", true);
 
         }
-        oldPos = new Vector2(transform.position.x, transform.position.y);
     }
 
     private void animReset() {
