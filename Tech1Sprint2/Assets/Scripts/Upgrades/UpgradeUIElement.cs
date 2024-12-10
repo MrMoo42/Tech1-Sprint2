@@ -16,6 +16,19 @@ public class UpgradeUIElement : MonoBehaviour
         img = transform.Find("Img");
         amt = transform.Find("Amt");
 
+        UpdateUI();
+    }
+
+    public void UpdateUI() {
+        if (amount == 0) {
+            gameObject.SetActive(false);
+        } else {
+            gameObject.SetActive(true);
+        }
+        if (amount > 99) {
+            amount = 99;
+        }
+
         img.GetComponent<Image>().sprite = upgrade.sprite;
         amt.GetComponent<TextMeshProUGUI>().text = (amount.ToString());
     }

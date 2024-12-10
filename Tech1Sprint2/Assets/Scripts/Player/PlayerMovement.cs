@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,10 +13,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb; //To actually *move* the player.
     private Vector2 moveInput; //Back end value, goes from -1 to 1 on each axis (x and y).
 
-    private SpriteRenderer sprite; 
-    private Animator anim;
+    [SerializeField] private Transform MirrorPlayer;
 
-    public bool isMoved; //Has the player moved since the last frame? (Used to stop the Mirror Player moving while the Material Player is stuck on an object.
+    private SpriteRenderer sprite;
+    private SpriteRenderer mirSprite;
+    private Animator anim;
+    private Animator mirAnim;
 
     public Color flashColor = Color.red;
     private Color orignialColor = Color.white;
@@ -24,8 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float Frames;
     public bool invincible;
-
-    private Vector2 oldPos; //Position of the player last frame.
 
     private void OnEnable()
     {
@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerInputs.Disable();
     } //Function to stop detecting keyboard/controller inputs.
+
     private void Awake()
     {
         playerInputs = new PlayerInputs(); //For input detection.
@@ -48,48 +49,56 @@ public class PlayerMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>(); //Get animator from the gameObject.
         sprite = GetComponent<SpriteRenderer>(); //Get spriteRenderer from the gameObject.
+        mirAnim = MirrorPlayer.GetComponent<Animator>();
+        mirSprite = MirrorPlayer.GetComponent<SpriteRenderer>();
+
+        if (mirAnim == null) {
+            Debug.LogError("NO MIRROR ANIM");
+        }
+        if (mirSprite == null) {
+            Debug.LogError("NO MIRROR SPRITE");
+        }
     }
 
     private void FixedUpdate()
     {
+
+        MirrorPlayer.position = new Vector3(7-transform.position.x, transform.position.y, 0);
+
         moveInput = playerInputs.Player.Movement.ReadValue<Vector2>(); //Detect the players inputs of WASD/Joystick.
         moveInput.Normalize(); //Normalize, this makes it so holding 2 keys doesn't make the movement any faster.
 
         if (moveInput.x >= 0.5f) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            sprite.flipX = true;
         } else if (moveInput.x <= -0.5f) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            sprite.flipX = false;
         }
         rb.velocity = moveInput * moveSpeed; //The actual movement of the player.
         animReset();
 
-        if (oldPos == new Vector2(transform.position.x, transform.position.y)) {
-            isMoved = false; 
-        } else {
-            isMoved = true;
-        } //These functions determine if the player has moved since last frame.
-
         if (moveInput == new Vector2(0, 0)) {
             anim.SetBool("Idle", true);
+            mirAnim.SetBool("Idle", true);
         }
         if (moveInput.x >= 0.5)
         {
             anim.SetBool("WalkRight", true);
+            mirAnim.SetBool("WalkLeft", true);
         }
         else if (moveInput.x <= -0.5) {
             anim.SetBool("WalkLeft", true);
+            mirAnim.SetBool("WalkRight", true);
         }
         if (moveInput.y > 0.5) {
             anim.SetBool("WalkUp", true);
+            mirAnim.SetBool("WalkUp", true);
         }
         else if (moveInput.y < -0.5)
         {
             anim.SetBool("WalkDown", true);
+            mirAnim.SetBool("WalkDown", true);
 
         } //These 5 functions decide which animation to use.
-
-
-        oldPos = new Vector2(transform.position.x, transform.position.y); //Set the "oldPos" to the current position to prepare for next frame.
     }
 
     private void animReset() {
@@ -99,6 +108,13 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("WalkDown", false);
         anim.SetBool("WalkLeft", false);
         anim.SetBool("WalkRight", false);
+
+        mirSprite.flipX = false;
+        mirAnim.SetBool("Idle", false);
+        mirAnim.SetBool("WalkUp", false);
+        mirAnim.SetBool("WalkDown", false);
+        mirAnim.SetBool("WalkLeft", false);
+        mirAnim.SetBool("WalkRight", false);
     } //Reset animations, incase we're now in a different state. (Eg.. WalkUp -> Idle)
 
     public IEnumerator FlashDamage()

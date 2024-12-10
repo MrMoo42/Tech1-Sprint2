@@ -9,17 +9,23 @@ public class PlayerUpgradeManager : MonoBehaviour
     [SerializeField] private PlayerHealth health;
     [SerializeField] private PlayerMelee melee;
     [SerializeField] private PlayerMovement movement;
-    [SerializeField] private MirPlayerMovement mirrorMovement;
+
+    [SerializeField] private GameObject MaxHealthUI, MoveSpeedUI, AttackDamageUI, AttackSpeedUI, AttackRangeUI;
 
     public void AddUpgrade(Upgrade n) {
         switch (n.Type) {
             case Upgrade.UpgradeType.MaxHealth:
                 health.maxHealth += n.upgradeValue;
                 upgrades.Add(n);
+
+                MaxHealthUI.SetActive(true);
+                UpgradeUIElement uiElement = MaxHealthUI.GetComponent<UpgradeUIElement>();
+                uiElement.amount += 1;
+                uiElement.UpdateUI();
+                
                 break;
             case Upgrade.UpgradeType.MoveSpeed:
                 movement.moveSpeed += n.upgradeValue;
-                mirrorMovement.moveSpeed += n.upgradeValue;
                 upgrades.Add(n);
                 break;
             case Upgrade.UpgradeType.AttackDamage:
