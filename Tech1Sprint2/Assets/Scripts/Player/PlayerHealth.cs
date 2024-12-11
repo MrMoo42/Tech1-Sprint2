@@ -9,6 +9,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable
     private float health; //Current health of player.
     public bool HasTakenDamage { get; set; } //Is the player in the process of taking damage?
 
+    AudioManager audioManager; // used to call the scene's audio manager
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     private void Start()
     {
         health = maxHealth; //Set the starting health of our player.
@@ -17,8 +24,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable
     public void Damage(float amt) {
         health -= amt;
 
-        if (health <= 0) {
+        if (health <= 0)
+        {
+            audioManager.PlaySFX(audioManager.playerDeath); // play sfx when player dies
             Die();
+        }
+        else
+        {
+            audioManager.PlaySFX(audioManager.hitPlayer); // play sfx when player is hit but doesn't die
         }
     } //Damage function so we don't have to change the value directly. Also checks if player is dead.
 

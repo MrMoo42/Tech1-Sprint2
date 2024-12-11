@@ -13,9 +13,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public bool HasTakenDamage { get; set; } //Used to make sure the enemy gets hit only once by a single attack.
 
+    AudioManager audioManager; // used to call the scene's audio manager
+    
     private void Awake()
     {
         health = maxHealth; //Set the starting health for the enemy.
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void Damage(float amt)
@@ -25,7 +28,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         health -= amt;
 
         if (health <= 0) {
+            audioManager.PlaySFX(audioManager.enemyDeath); // play sfx when enemy dies
             Die();
+        }
+        else
+        {
+            audioManager.PlaySFX(audioManager.hitEnemy); // play sfx when enemy is hit but doesn't die
         }
     } //Damage function, also checks for death.
 

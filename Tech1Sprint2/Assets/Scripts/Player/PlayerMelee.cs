@@ -24,6 +24,12 @@ public class PlayerMelee : MonoBehaviour
 
     private float attackTimeCounter;
 
+    AudioManager audioManager; // used to call the scene's audio manager
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
@@ -50,6 +56,7 @@ public class PlayerMelee : MonoBehaviour
         if (UserInput.instance.controls.Player.Attack.WasPerformedThisFrame() && attackTimeCounter >= attackSpeed)
         {
             attackTimeCounter = 0f;
+            audioManager.PlaySFX(audioManager.playerAttack); // play sfx when player attacks
             anim.SetTrigger("attack");
             //Attack();
         }

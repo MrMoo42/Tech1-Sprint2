@@ -120,13 +120,13 @@ public class EnemyPatrol : MonoBehaviour
         {
             PlayerMovement playerMove = other.gameObject.GetComponent<PlayerMovement>();
             PlayerHealth playerHP = other.gameObject.GetComponent<PlayerHealth>();
-            if (!playerMove.invincible)
+            if (!playerMove.invincible) // deal damage only if i frames are inactive
             {
                 playerHP.Damage(1);
-                StartCoroutine(playerMove.FlashDamage());
+                StartCoroutine(playerMove.FlashDamage()); // start flashing and i frames
             }
         }
-        if (other.gameObject.CompareTag("Void"))
+        if (other.gameObject.CompareTag("Void")) // when touching the void, die (UNUSED SCRIPT)
         {
             health.Damage(100);
         }
