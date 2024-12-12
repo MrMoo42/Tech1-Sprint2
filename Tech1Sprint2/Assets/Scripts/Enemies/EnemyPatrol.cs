@@ -14,6 +14,13 @@ public class EnemyPatrol : MonoBehaviour
     public bool reverse; //Reverse sprite flipping while moving. Temporary untill movement animations get setup
     public float speed = 3.0f; //Movement speed.
 
+    [Header("Object Dropping")]
+    public bool objectDropper;
+    public GameObject dropObject;
+    public bool randomDrop;
+    private bool isDropped;
+    private GameObject dropContainer;
+
     [Header("Set Path")]
     [SerializeField] private Transform[] waypoints;
     private int target;
@@ -60,24 +67,41 @@ public class EnemyPatrol : MonoBehaviour
         {
             transform.position = waypoints[0].position;
         }
+
+        if (objectDropper) {
+            dropContainer = GameObject.Find("TempObjects");
+        }
     }
 
     private void Update()
     {
         if (random)
         {
-            if (transform.position != randTarget.position)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, randTarget.position, speed * Time.deltaTime);
-            }
-            else
-            {
-                cd += Time.deltaTime;
-                if (cd >= stopDelay)
-                {
-                    Destroy(randTarget.gameObject);
-                    randTarget = Instantiate(waypointObject, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0), Quaternion.identity, waypointHolder.transform).transform;
-                    cd = 0;
+            if (objectDropper) {
+                if (transform.position != randTarget.position) {
+
+                    transform.position = Vector2.MoveTowards(transform.position, randTarget.position, speed * Time.deltaTime);
+                } else {
+                    if (!isDropped) {
+                        if (randomDrop) {
+                            transform.GetComponent<Animator>().SetTrigger("Attack");
+                            Instantiate(dropObject, (new Vector3(Random.Range(4.5f, 12.2f), Random.Range(-5.5f + 0.4f, 2 + (0.4f * transform.localScale.x)), 0)), Quaternion.identity,
+                                dropContainer.transform);
+                            isDropped = true;
+                        } else {
+                            transform.GetComponent<Animator>().SetTrigger("Attack");
+                            Instantiate(dropObject, new Vector3(transform.position.x + 9.8f, transform.position.y + (0.4f * transform.localScale.x), 0), Quaternion.identity,
+                                dropContainer.transform);
+                            isDropped = true;
+                        }
+                    }
+                    cd += Time.deltaTime;
+                    if (cd >= stopDelay) {
+                        isDropped = false;
+                        Destroy(randTarget.gameObject);
+                        randTarget = Instantiate(waypointObject, new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0), Quaternion.identity, waypointHolder.transform).transform;
+                        cd = 0;
+                    }
                 }
             }
         }
@@ -120,13 +144,13 @@ public class EnemyPatrol : MonoBehaviour
         {
             PlayerMovement playerMove = other.gameObject.GetComponent<PlayerMovement>();
             PlayerHealth playerHP = other.gameObject.GetComponent<PlayerHealth>();
-            if (!playerMove.invincible)
+            if (!playerMove.invincible) // deal damage only if i frames are inactive
             {
                 playerHP.Damage(1);
-                StartCoroutine(playerMove.FlashDamage());
+                StartCoroutine(playerMove.FlashDamage()); // start flashing and i frames
             }
         }
-        if (other.gameObject.CompareTag("Void"))
+        if (other.gameObject.CompareTag("Void")) // when touching the void, die (UNUSED SCRIPT)
         {
             health.Damage(100);
         }

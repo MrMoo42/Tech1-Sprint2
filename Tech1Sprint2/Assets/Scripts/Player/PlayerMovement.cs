@@ -20,11 +20,12 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private Animator mirAnim;
 
+    [Header("IFrames")]
     public Color flashColor = Color.red;
     private Color orignialColor = Color.white;
     private float flashDuration = 0.1f;
 
-    public float Frames;
+    public float Seconds;
     public bool invincible;
 
     private void OnEnable()
@@ -131,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         if (!invincible)
         {
             invincible = true;
-            yield return new WaitForSeconds(Frames);
+            yield return new WaitForSeconds(Seconds);
             invincible = false;
             sprite.color = orignialColor;
         }
