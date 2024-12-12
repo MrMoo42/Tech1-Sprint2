@@ -5,31 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class EndLevel : MonoBehaviour
 {
-    public int level;
-    private int enemyKills;
-    public int totalEnemies;
-    public PlayerUpgradeManager PUM;
+    public int level = SceneManager.GetActiveScene().buildIndex; // gets the current level
+    private int enemyKills; // how many enemies the player ahs killed so far
+    public int totalEnemies; // how many enemies are on the map
+    public PlayerUpgradeManager PUM; // reference to player upgrades
     public PlayerHealth HP;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public SetRandomUpgrades SRU;
 
     public void EnemyKilled()
     {
         enemyKills++;
         if (enemyKills == totalEnemies)
         {
-            LevelComplete();
+            EndLevelUI(); // end level if all enemies are dead
         }
+    }
+
+    private void EndLevelUI()
+    {
+        SRU.GenerateUpgrades();
     }
 
     private void LevelComplete()

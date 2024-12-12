@@ -14,6 +14,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public bool HasTakenDamage { get; set; } //Used to make sure the enemy gets hit only once by a single attack.
 
     AudioManager audioManager; // used to call the scene's audio manager
+
+    public EndLevel killCount; // calls the script that counts how many enemies have been killed
     
     private void Awake()
     {
@@ -43,6 +45,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (n <= healthPickupChance) {
             SpawnHealthPickup();
         }
+
+        killCount.EnemyKilled(); // tells the end level script another enemy has been killed
 
         Destroy(gameObject);
     } //What happens when the enemy dies?
