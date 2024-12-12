@@ -166,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 2645624104707711608}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: -1.3, z: 0}
+  m_LocalPosition: {x: 18, y: 1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -470,7 +470,7 @@ Transform:
   m_GameObject: {fileID: 4187485594614460953}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: -1.3, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -628,6 +628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   MirrorPlayer: {fileID: 2179641185056987457}
+  difference: 19
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   Seconds: 0.5
   invincible: 0
@@ -645,6 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 0
+  HPBar: {fileID: 0}
 --- !u!114 &3726985958595695500
 MonoBehaviour:
   m_ObjectHideFlags: 0
