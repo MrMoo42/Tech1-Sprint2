@@ -177,14 +177,14 @@ MonoBehaviour:
   musicSource: {fileID: 1183834935943291659}
   SFXSource: {fileID: 5026751071591563390}
   background: {fileID: 0}
-  walk: {fileID: 0}
-  playerAttack: {fileID: 0}
-  playerDeath: {fileID: 0}
-  hitEnemy: {fileID: 0}
-  hitPlayer: {fileID: 0}
+  walk: {fileID: 8300000, guid: 97302cb1d8d4403438f1e7492c2c9ad2, type: 3}
+  playerAttack: {fileID: 8300000, guid: 97ffde188ace1a041a8559949afe7a63, type: 3}
+  playerDeath: {fileID: 8300000, guid: 598c40eaa7d025b419bf3a9274578ed8, type: 3}
+  hitEnemy: {fileID: 8300000, guid: 66fd741197c5bca418eb3d98aab92bd2, type: 3}
+  hitPlayer: {fileID: 8300000, guid: b93b06c97eaac6240bd390e2a23afde9, type: 3}
   enemyAttack: {fileID: 0}
-  enemyDeath: {fileID: 0}
-  itemPickup: {fileID: 0}
+  enemyDeath: {fileID: 8300000, guid: f575d07da1b55a84b929804b7c8c3a0b, type: 3}
+  itemPickup: {fileID: 8300000, guid: 7e72a5a2844db204eb6caecfaa42c34c, type: 3}
   levelClear: {fileID: 0}
 --- !u!1 &6838935839283247702
 GameObject:
