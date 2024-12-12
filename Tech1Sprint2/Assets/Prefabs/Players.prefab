@@ -1068,4 +1068,4 @@ MonoBehaviour:
   sprite: {fileID: 8130187757297893755}
   hinge: {fileID: 5613332316674163011}
   damage: 10
-  attackSpeed: 0.7
+  attackSpeed: 0.5

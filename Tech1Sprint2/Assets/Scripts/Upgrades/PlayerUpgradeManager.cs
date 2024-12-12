@@ -14,9 +14,10 @@ public class PlayerUpgradeManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < DataStorage.upgradeStorage.Count; i++)
-        {
-            AddUpgrade(DataStorage.upgradeStorage[i]);
+        if (DataStorage.upgradeStorage.Count != null) {
+            for (int i = 0; i < DataStorage.upgradeStorage.Count; i++) {
+                AddUpgrade(DataStorage.upgradeStorage[i]);
+            }
         }
     }
 

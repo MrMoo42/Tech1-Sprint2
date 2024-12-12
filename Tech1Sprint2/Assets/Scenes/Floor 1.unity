@@ -5214,6 +5214,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6163009601531123604, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: upgrade.upgradeValue
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6378583679658088103, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
       propertyPath: m_Name
       value: UI
@@ -5244,7 +5248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7335619084880031875, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7391287316529457378, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5268,6 +5272,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7391287316529457378, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908913698410026983, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

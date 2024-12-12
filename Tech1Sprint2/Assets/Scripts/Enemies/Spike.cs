@@ -13,7 +13,6 @@ public class Spike : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Void")) {
             Destroy(gameObject);
         }

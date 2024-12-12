@@ -26,7 +26,7 @@ public class EnemyFollow : MonoBehaviour
 
 
         if (target != null && distance >= 0.5f) {
-            transform.position = Vector3.Lerp(transform.position, target.position, 0.5f * speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, 0.5f * speed * Time.deltaTime);
         }
     }
 

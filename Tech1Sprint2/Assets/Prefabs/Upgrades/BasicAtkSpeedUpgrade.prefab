@@ -135,5 +135,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrade:
     Type: 2
-    upgradeValue: 0.07
+    upgradeValue: 0.05
     sprite: {fileID: 21300000, guid: 58d0e9de15c0abe46b69628a3fbfbb6b, type: 3}

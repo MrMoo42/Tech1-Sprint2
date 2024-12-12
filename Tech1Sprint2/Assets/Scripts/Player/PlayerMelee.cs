@@ -11,6 +11,7 @@ public class PlayerMelee : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
 
     [SerializeField] private GameObject hinge;
+
     public bool shouldDamage { get; private set; } = false;
 
     [SerializeField] private List<IDamageable> iDamageables = new List<IDamageable>();
@@ -38,6 +39,8 @@ public class PlayerMelee : MonoBehaviour
     }
     private void Update()
     {
+        anim.speed = 1.25f + (-1 * (attackSpeed - 0.5f));
+
         //Get Screen POS of Object
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(hinge.transform.position);
         //Get Mouse POS
@@ -105,7 +108,6 @@ public class PlayerMelee : MonoBehaviour
 
                 if (iDamageable != null && !iDamageable.HasTakenDamage)
                 {
-                    Debug.Log("Smack!");
                     iDamageable.Damage(damage);
                     iDamageables.Add(iDamageable);
                 }
