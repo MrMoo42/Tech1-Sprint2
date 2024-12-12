@@ -13,6 +13,8 @@ public class EndLevel : MonoBehaviour
 
     public SetRandomUpgrades SRU;
 
+    [SerializeField] public Upgrade[] upgradeArray = new Upgrade[5];
+
     private void Awake()
     {
         level = SceneManager.GetActiveScene().buildIndex; // gets the current level
@@ -23,7 +25,8 @@ public class EndLevel : MonoBehaviour
         enemyKills++;
         if (enemyKills == totalEnemies)
         {
-            EndLevelUI(); // end level if all enemies are dead
+            //EndLevelUI(); // end level if all enemies are dead
+            StartCoroutine(NextScene());
         }
     }
 
@@ -40,14 +43,22 @@ public class EndLevel : MonoBehaviour
 
     IEnumerator NextScene()
     {
+        int randomUp = Random.Range(1, 6);
+        PUM.AddUpgrade(upgradeArray[randomUp-1]);
+
+        LevelComplete();
         yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Floor 1");
+
+
+
         int randomInt = Random.Range(1, 4);
         while (randomInt == level) // randomly chooses the next level so long as it's not the same as the current level
         {
             randomInt = Random.Range(1, 4);
         }
 
-        switch (randomInt) // loads a level based on the random number
+        /*switch (randomInt) // loads a level based on the random number
         {
             case 1:
                 SceneManager.LoadScene("Floor 1");
@@ -64,6 +75,6 @@ public class EndLevel : MonoBehaviour
             default:
 
                 break;
-        }
+        }*/
     }
 }

@@ -54,7 +54,7 @@ public class PlayerUpgradeManager : MonoBehaviour
                 
                 break;
             case Upgrade.UpgradeType.AttackSpeed:
-                melee.attackSpeed += n.upgradeValue;
+                melee.attackSpeed -= n.upgradeValue;
                 upgrades.Add(n);
                 if (melee.attackSpeed < 0.1f) {
                     melee.attackSpeed = 0.1f;

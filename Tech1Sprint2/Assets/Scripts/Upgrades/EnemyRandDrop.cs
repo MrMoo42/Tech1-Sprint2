@@ -14,7 +14,7 @@ public class EnemyRandDrop : MonoBehaviour
         int temp = Random.Range(1, 100);
 
         if (deathDropChance >= temp) {
-            choice = Random.Range(1, 5);
+            choice = Random.Range(1, 6);
             Debug.Log("Upgrade Choice: " + choice);
             switch (choice) {
                 case 1:
