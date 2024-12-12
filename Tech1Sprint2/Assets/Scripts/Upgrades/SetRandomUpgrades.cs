@@ -9,16 +9,6 @@ public class SetRandomUpgrades : MonoBehaviour
     private String header;
     private String desciption;
 
-    //[Header("------- Choice info -------")]
-    //public String Choice1header;
-    //public String Choice1description;
-
-    //public String Choice2header;
-    //public String Choice2description;
-
-    //public String Choice3header;
-    //public String Choice3description;
-
     public Choice1 choice1;
     public Choice1 choice2;
     public Choice1 choice3;
@@ -26,25 +16,21 @@ public class SetRandomUpgrades : MonoBehaviour
 
     public void GenerateUpgrades()
     {
-        AssignRandom();
-        choice1.SetParameters(header,desciption);
-        //Choice1header = header;
-        //Choice1description = desciption;
+        AssignRandom(); // randomly generates an upgrade
+        choice1.SetParameters(header,desciption); // sends info to the UI
 
         AssignRandom();
         choice2.SetParameters(header, desciption);
-        //Choice2header = header;
-        //Choice2description = desciption;
 
         AssignRandom();
         choice3.SetParameters(header, desciption);
-        //Choice3header = header;
-        //Choice1description = desciption;
     }
 
     private void AssignRandom()
     {
         int randomInt = UnityEngine.Random.Range(1, 1);
+
+        // sets the header and description of the randomly chosen upgrade
         if (randomInt == 1)
         {
             header = "Candy Apple";

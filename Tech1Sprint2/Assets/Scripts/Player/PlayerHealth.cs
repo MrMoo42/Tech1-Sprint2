@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable, because the player is damageable.
 {
     public float maxHealth = 100; //Maxiumum health of player, can be modified.
     public float health; //Current health of player.
+    public Image HPBar; //HP bar UI
     public bool HasTakenDamage { get; set; } //Is the player in the process of taking damage?
 
     AudioManager audioManager; // used to call the scene's audio manager
@@ -49,4 +51,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable
     public void Die() {
         SceneManager.LoadScene(0);
     } //What to do if the player has died.
+
+    void Update()
+    {
+        HPBar.fillAmount = health / maxHealth;
+    }
 }

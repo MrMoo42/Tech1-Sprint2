@@ -29,25 +29,25 @@ public class EndLevel : MonoBehaviour
 
     private void EndLevelUI()
     {
-        SRU.GenerateUpgrades();
+        SRU.GenerateUpgrades(); // starts the UI process for selecting upgardes
     }
 
     private void LevelComplete()
     {
-        DataStorage.upgradeStorage = PUM.upgrades;
-        DataStorage.playerSavedHP = HP.health;
+        DataStorage.upgradeStorage = PUM.upgrades; // stores upgrades
+        DataStorage.playerSavedHP = HP.health; // stores current hp
     }
 
     IEnumerator NextScene()
     {
         yield return new WaitForSeconds(1);
         int randomInt = Random.Range(1, 4);
-        while (randomInt == level)
+        while (randomInt == level) // randomly chooses the next level so long as it's not the same as the current level
         {
             randomInt = Random.Range(1, 4);
         }
 
-        switch (randomInt)
+        switch (randomInt) // loads a level based on the random number
         {
             case 1:
                 SceneManager.LoadScene("Floor 1");
