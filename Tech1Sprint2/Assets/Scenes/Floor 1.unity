@@ -5275,6 +5275,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716044493634201680, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 7908913698410026983, guid: 9632d43390222bd4bb423a30c919cb81, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5400,7 +5424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  totalEnemies: 1
+  totalEnemies: 9
   PUM: {fileID: 1261436633}
   HP: {fileID: 1261436635}
   SRU: {fileID: 1238532946}
@@ -5656,7 +5680,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.001
+  m_Intensity: 0.0005
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 0000000027539eda
