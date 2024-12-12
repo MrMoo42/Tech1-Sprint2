@@ -53,7 +53,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable
 
     public void Die() {
         SceneManager.LoadScene(0);
-        DataStorage.instance.ClearUpgradeStorage();
+        //DataStorage.instance.ClearUpgradeStorage();
     } //What to do if the player has died.
 
     void Update()

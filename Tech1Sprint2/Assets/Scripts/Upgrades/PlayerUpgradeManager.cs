@@ -14,11 +14,13 @@ public class PlayerUpgradeManager : MonoBehaviour
 
     void Start()
     {
-        if (DataStorage.upgradeStorage.Count != null) {
-            for (int i = 0; i < DataStorage.upgradeStorage.Count; i++) {
-                AddUpgrade(DataStorage.upgradeStorage[i]);
-            }
-        }
+        //if (DataStorage.upgradeStorage.Count != 0)
+        //{
+        //    for (int i = 0; i < DataStorage.upgradeStorage.Count; i++)
+        //    {
+        //        AddUpgrade(DataStorage.upgradeStorage[i]);
+        //    }
+        //}
     }
 
     public void AddUpgrade(Upgrade n) {
