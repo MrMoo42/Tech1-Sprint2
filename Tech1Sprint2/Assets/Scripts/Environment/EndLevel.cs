@@ -5,13 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class EndLevel : MonoBehaviour
 {
-    public int level = SceneManager.GetActiveScene().buildIndex; // gets the current level
+    public int level;
     private int enemyKills; // how many enemies the player ahs killed so far
     public int totalEnemies; // how many enemies are on the map
     public PlayerUpgradeManager PUM; // reference to player upgrades
     public PlayerHealth HP;
 
     public SetRandomUpgrades SRU;
+
+    private void Awake()
+    {
+        level = SceneManager.GetActiveScene().buildIndex; // gets the current level
+    }
 
     public void EnemyKilled()
     {
