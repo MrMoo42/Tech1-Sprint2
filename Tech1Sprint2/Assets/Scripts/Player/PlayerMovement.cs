@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput; //Back end value, goes from -1 to 1 on each axis (x and y).
 
     [SerializeField] private Transform MirrorPlayer;
+    public float difference = 17;
 
     private SpriteRenderer sprite;
     private SpriteRenderer mirSprite;
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
-        MirrorPlayer.position = new Vector3(7-transform.position.x, transform.position.y, 0);
+        MirrorPlayer.position = new Vector3(difference-transform.position.x, transform.position.y, 0);
 
         moveInput = playerInputs.Player.Movement.ReadValue<Vector2>(); //Detect the players inputs of WASD/Joystick.
         moveInput.Normalize(); //Normalize, this makes it so holding 2 keys doesn't make the movement any faster.
