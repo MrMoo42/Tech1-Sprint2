@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3068087193558759261}
   - component: {fileID: 3831082388993619087}
   - component: {fileID: 1148014716892781490}
+  - component: {fileID: 697159222704635223}
   m_Layer: 7
   m_Name: Mime
   m_TagString: Enemy
@@ -148,6 +149,7 @@ MonoBehaviour:
   health: 0
   healthPickup: {fileID: 2348668101324266203, guid: e52e27b4920b0a34c8e9880b52c1cc6f, type: 3}
   healthPickupChance: 8
+  killCount: {fileID: 0}
 --- !u!114 &1148014716892781490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +165,21 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 4.2
   damage: 5
+--- !u!114 &697159222704635223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549144806471333992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c5885c69530e84598fde5d8be8e0f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathDropChance: 3
+  hpDrop: {fileID: 8390454313796041820, guid: e8966942caf3d034d821d8f5bf49f56f, type: 3}
+  speedDrop: {fileID: 8390454313796041820, guid: 783046a8177e602479a242f76be602db, type: 3}
+  damageDrop: {fileID: 8390454313796041820, guid: 934d448ed46565c41b889340ddea947a, type: 3}
+  atkSpeedDrop: {fileID: 8390454313796041820, guid: c8c311905e0bad7408ad3926629f34e2, type: 3}
+  rangeDrop: {fileID: 8390454313796041820, guid: c265c8c59cbe02c489de913c08fb2d68, type: 3}
