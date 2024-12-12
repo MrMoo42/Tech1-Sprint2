@@ -20,6 +20,7 @@ public class EnemyPatrol : MonoBehaviour
     public bool randomDrop;
     private bool isDropped;
     private GameObject dropContainer;
+    public float difference;
 
     [Header("Set Path")]
     [SerializeField] private Transform[] waypoints;
@@ -85,12 +86,16 @@ public class EnemyPatrol : MonoBehaviour
                     if (!isDropped) {
                         if (randomDrop) {
                             transform.GetComponent<Animator>().SetTrigger("Attack");
-                            Instantiate(dropObject, (new Vector3(Random.Range(4.5f, 12.2f), Random.Range(-5.5f + 0.4f, 2 + (0.4f * transform.localScale.x)), 0)), Quaternion.identity,
-                                dropContainer.transform);
+
+                            Instantiate(dropObject, (new Vector3(Random.Range(difference-xMin, difference - xMax), 
+                                Random.Range(yMin + (0.4f * transform.localScale.x), yMax + (0.4f * transform.localScale.x)), 0)), 
+                                Quaternion.identity, dropContainer.transform);
+
                             isDropped = true;
                         } else {
+
                             transform.GetComponent<Animator>().SetTrigger("Attack");
-                            Instantiate(dropObject, new Vector3(transform.position.x + 9.8f, transform.position.y + (0.4f * transform.localScale.x), 0), Quaternion.identity,
+                            Instantiate(dropObject, new Vector3(difference-transform.position.x, transform.position.y + (0.4f * transform.localScale.x), 0), Quaternion.identity,
                                 dropContainer.transform);
                             isDropped = true;
                         }
