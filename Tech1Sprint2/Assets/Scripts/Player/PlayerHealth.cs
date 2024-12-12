@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour, IDamageable //Referencing IDamageable, because the player is damageable.
 {
     public float maxHealth = 100; //Maxiumum health of player, can be modified.
-    [SerializeField] private float health; //Current health of player.
+    public float health; //Current health of player.
     public bool HasTakenDamage { get; set; } //Is the player in the process of taking damage?
 
     AudioManager audioManager; // used to call the scene's audio manager
